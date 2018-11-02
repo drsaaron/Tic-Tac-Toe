@@ -8,7 +8,8 @@ const initialState = {
         }
     ],
     stepNumber: 0,
-    xIsNext: true
+    xIsNext: true,
+    winner: null
 };
 
 export default function ticTacToeReducer(state = initialState, action) {
@@ -18,10 +19,13 @@ export default function ticTacToeReducer(state = initialState, action) {
             const history = state.history.slice(0, state.stepNumber + 1);
             const current = history[history.length - 1];
             const squares = current.squares.slice();
-            if (calculateWinner(squares) || squares[square]) {
-                return;
+            if (squares[square]) {
+                return {
+                    ...state
+                };
             }
             squares[square] = state.xIsNext ? "X" : "O";
+            var winner = calculateWinner(squares);
             return {
                 ...state,
                 stepNumber: ++state.stepNumber,
@@ -31,6 +35,7 @@ export default function ticTacToeReducer(state = initialState, action) {
                         squares: squares
                     }
                 ]),
+                winner: winner
             };
 
         case ActionTypes.JUMP:

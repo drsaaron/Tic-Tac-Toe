@@ -8,7 +8,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Board from './Board';
 import { squareChosen, jumpTo } from '../actions/TicTacToeActions';
-import { calculateWinner } from '../actions/calculateWinner';
 
 const mapStateToProps = (state) => {
     return {
@@ -33,7 +32,11 @@ export default class Game extends Component {
     }
 
     handleClick(i) {
-        this.props.squareChosen(i);
+        if (this.props.gameState.winner === null) {
+            this.props.squareChosen(i);
+        } else {
+            console.log("game is already over");
+        }
     }
 
     jumpTo(step) {
@@ -43,7 +46,7 @@ export default class Game extends Component {
     render() {
         const history = this.props.gameState.history;
         const current = history[this.props.gameState.stepNumber];
-        const winner = calculateWinner(current.squares);
+        const winner = this.props.gameState.winner;
 
         const moves = history.map((step, move) => {
             const desc = move ?
