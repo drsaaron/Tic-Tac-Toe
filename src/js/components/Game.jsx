@@ -45,7 +45,7 @@ export default class Game extends Component {
 
     render() {
         const history = this.props.gameState.history;
-        const current = history[this.props.gameState.stepNumber];
+        const current = this.props.gameState.currentSquares;
         const winner = this.props.gameState.winner;
 
         const moves = history.map((step, move) => {
@@ -70,7 +70,7 @@ export default class Game extends Component {
                 <div className="game">
                     <div className="game-board">
                         <Board
-                            squares={current.squares}
+                            squares={current}
                             onClick={i => this.handleClick(i)}
                             />
                     </div>
