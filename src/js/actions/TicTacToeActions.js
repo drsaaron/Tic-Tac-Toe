@@ -5,3 +5,9 @@ export function squareChosen(square) {
         dispatch({ type: ActionTypes.SQUARE_CLICKED, square });
     };
 }
+
+export function jumpTo(step) {
+    return (dispatch) => {
+        dispatch({ type: ActionTypes.JUMP, step });
+    };
+}
