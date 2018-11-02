@@ -33,7 +33,7 @@ export default class Game extends Component {
     }
 
     handleClick(i) {
-        if (this.props.gameState.winner === null) {
+        if (this.props.gameState.status == STATUS_STARTING || this.props.gameState.status == STATUS_ACTIVE) {
             this.props.squareChosen(i);
         } else {
             console.log("game is already over");
@@ -60,13 +60,18 @@ export default class Game extends Component {
                     );
         });
 
-        let status = this.props.gameState.status;
-        if (status == STATUS_WINNER) {
-            status = "Winner: " + winner;
-        } else if (status == STATUS_DRAW) {
-            status = 'Draw';
-        }else {
-            status = "Next player: " + (this.props.gameState.xIsNext ? "X" : "O");
+        var gameStatus = this.props.gameState.status;
+        let status;
+        switch (gameStatus) {
+            case STATUS_WINNER:
+                status = "Winner: " + winner;
+                break;
+            case STATUS_DRAW:
+                status = 'Draw';
+                break;
+            default:
+                status = "Next player: " + (this.props.gameState.xIsNext ? "X" : "O");
+                break;
         }
 
         return (
