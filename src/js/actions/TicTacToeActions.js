@@ -20,25 +20,35 @@ export function squareChosen(square) {
         var winner = calculateWinner(squares);
         var stepNumber = ++gameState.stepNumber;
         var status = determineStatus(winner, stepNumber);
-        
+
         // new squares
         history = history.concat([
-                    {
-                        squares: squares
-                    }
-                ]);
+            {
+                squares: squares
+            }
+        ]);
 
         dispatch({type: ActionTypes.HISTORY_UPDATE, history});
         dispatch({type: ActionTypes.CURRENT_SQUARES_UPDATE, squares});
         dispatch({type: ActionTypes.STEP_NUMBER_UPDATE, stepNumber});
         dispatch({type: ActionTypes.GAME_STATUS_UPDATE, status});
-        dispatch({type: ActionTypes.WINNER_UPDATE, winner });
+        dispatch({type: ActionTypes.WINNER_UPDATE, winner});
     };
 }
 
 export function jumpTo(step) {
-    return (dispatch) => {
-        dispatch({type: ActionTypes.JUMP, step});
+    return (dispatch, getState) => {
+        var state = getState().gameState;
+        var squares = state.history[step].squares;
+        var winner = calculateWinner(squares);
+        var status = determineStatus(winner, step);
+        
+        var stepNumber = step;
+        
+        dispatch({type: ActionTypes.CURRENT_SQUARES_UPDATE, squares});
+        dispatch({type: ActionTypes.STEP_NUMBER_UPDATE, stepNumber});
+        dispatch({type: ActionTypes.GAME_STATUS_UPDATE, status});
+        dispatch({type: ActionTypes.WINNER_UPDATE, winner});
     };
 }
 
