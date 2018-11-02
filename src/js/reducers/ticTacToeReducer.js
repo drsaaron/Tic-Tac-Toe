@@ -43,7 +43,8 @@ export default function ticTacToeReducer(state = initialState, action) {
             return {
                 ...state,
                 stepNumber: step,
-                xIsNext: (step % 2) === 0
+                xIsNext: (step % 2) === 0,
+                winner: calculateWinner(state.history[step].squares)
             };
 
         default:

@@ -40,7 +40,7 @@ export default class Game extends Component {
     }
 
     jumpTo(step) {
-        this.props.jumpto(step);
+        this.props.jumpTo(step);
     }
 
     render() {
