@@ -5,8 +5,23 @@
  */
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Board from './Board';
+import { squareChosen } from '../actions/TicTacToeActions';
 
+const mapStateToProps = (state) => {
+    return {
+        gameState: state.gameState
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {    
+        squareChosen: (square) => dispatch(squareChosen(square))
+    };
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class Game extends Component {
     constructor(props) {
         super(props);
