@@ -21,22 +21,22 @@ export default function ticTacToeReducer(state = initialState, action) {
             const history = state.history.slice(0, state.stepNumber + 1);
             const current = history[history.length - 1];
             const squares = current.squares.slice();
-            
+
             // Are we clicking on a square already chosen?  If yes just return current state
             if (squares[square]) {
                 return {
                     ...state
                 };
             }
-            
+
             // set the square value.
             squares[square] = state.xIsNext ? "X" : "O";
-            
+
             // update state values.
             var winner = calculateWinner(squares);
             var stepNumber = ++state.stepNumber;
             var status = determineStatus(winner, stepNumber);
-            
+
             // return new state
             return {
                 ...state,
@@ -65,6 +65,37 @@ export default function ticTacToeReducer(state = initialState, action) {
                 winner: winner,
                 status: status
             };
+
+        case ActionTypes.HISTORY_UPDATE:
+            return {
+                ...state,
+                history: action.history
+            }
+
+        case ActionTypes.WINNER_UPDATE:
+            return {
+                ...state,
+                winner: action.winner
+            }
+
+        case ActionTypes.GAME_STATUS_UPDATE:
+            return {
+                ...state,
+                status: action.status
+            }
+
+        case ActionTypes.STEP_NUMBER_UPDATE:
+            return {
+                ...state,
+                stepNumber: action.stepNumber,
+                xIsNext: (action.stepNumber % 2) === 0
+            }
+
+        case ActionTypes.CURRENT_SQUARES_UPDATE:
+            return {
+                ...state,
+                currentSquares: action.squares
+            }
 
         default:
             return {
