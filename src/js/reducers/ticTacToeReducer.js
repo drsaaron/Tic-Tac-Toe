@@ -1,4 +1,5 @@
 import ActionTypes from '../actions/ActionTypes';
+import { STATUS_STARTING, STATUS_ACTIVE, STATUS_DRAW, STATUS_WINNER } from '../constants/Constants';
 
 const initialState = {
     history: [
@@ -9,7 +10,8 @@ const initialState = {
     stepNumber: 0,
     xIsNext: true,
     currentSquares: Array(9).fill(null),
-    winner: null
+    winner: null,
+    status: STATUS_STARTING
 };
 
 export default function ticTacToeReducer(state = initialState, action) {
@@ -26,9 +28,11 @@ export default function ticTacToeReducer(state = initialState, action) {
             }
             squares[square] = state.xIsNext ? "X" : "O";
             var winner = calculateWinner(squares);
+            var stepNumber = ++state.stepNumber;
+            var status = determineStatus(winner, stepNumber);
             return {
                 ...state,
-                stepNumber: ++state.stepNumber,
+                stepNumber: stepNumber,
                 xIsNext: !state.xIsNext,
                 history: history.concat([
                     {
@@ -36,17 +40,22 @@ export default function ticTacToeReducer(state = initialState, action) {
                     }
                 ]),
                 currentSquares: squares,
-                winner: winner
+                winner: winner,
+                status: status
             };
 
         case ActionTypes.JUMP:
             var step = action.step;
+            var squares = state.history[step].squares;
+            var winner = calculateWinner(squares);
+            var status = determineStatus(winner, step);
             return {
                 ...state,
                 stepNumber: step,
                 xIsNext: (step % 2) === 0,
-                currentSquares: state.history[step].squares,
-                winner: calculateWinner(state.history[step].squares)
+                currentSquares: squares,
+                winner: winner,
+                status: status
             };
 
         default:
@@ -75,4 +84,17 @@ function calculateWinner(squares) {
         }
     }
     return null;
+}
+
+function determineStatus(winner, stepNumber) {
+    if (winner) {
+        return STATUS_WINNER;
+    } else if (stepNumber === 0) {
+        return STATUS_STARTING;
+    } else if (stepNumber === 9) {
+        // we've had 9 choices and no winner, so it's a draw
+        return STATUS_DRAW;
+    } else {
+        return STATUS_ACTIVE;
+    }
 }

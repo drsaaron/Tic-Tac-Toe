@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Board from './Board';
 import { squareChosen, jumpTo } from '../actions/TicTacToeActions';
+import { STATUS_STARTING, STATUS_ACTIVE, STATUS_DRAW, STATUS_WINNER } from '../constants/Constants';
 
 const mapStateToProps = (state) => {
     return {
@@ -59,11 +60,10 @@ export default class Game extends Component {
                     );
         });
 
-        let status;
-        if (winner) {
+        let status = this.props.gameState.status;
+        if (status == STATUS_WINNER) {
             status = "Winner: " + winner;
-        } else if (this.props.gameState.stepNumber == 9) {
-            // we've had 9 choices and no winner, so it's a draw
+        } else if (status == STATUS_DRAW) {
             status = 'Draw';
         }else {
             status = "Next player: " + (this.props.gameState.xIsNext ? "X" : "O");

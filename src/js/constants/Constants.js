@@ -1,2 +1,4 @@
-//export const DATA_URL_ROOT = 'http://s210277:3000';
-export const DATA_URL_ROOT = 'https://localhost:3000';
+export const STATUS_ACTIVE = 'Active';
+export const STATUS_DRAW = 'Draw';
+export const STATUS_WINNER = 'Winner';
+export const STATUS_STARTING = 'Starting';
