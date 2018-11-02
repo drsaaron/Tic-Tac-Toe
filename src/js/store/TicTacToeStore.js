@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
-import ticTacToeReducer from '../reducers/ticTacToeReducer';
+import rootReducer from '../reducers/rootReducer';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
-const store = createStore(ticTacToeReducer, {}, applyMiddleware(thunk, logger));
+const store = createStore(rootReducer, {}, applyMiddleware(thunk, logger));
 
 export default store;
