@@ -24,7 +24,7 @@ export default function ticTacToeReducer(state = initialState, action) {
             squares[square] = state.xIsNext ? "X" : "O";
             return {
                 ...state,
-                stepNumber: state.stepNumber++,
+                stepNumber: ++state.stepNumber,
                 xIsNext: !state.xIsNext,
                 history: history.concat([
                     {
