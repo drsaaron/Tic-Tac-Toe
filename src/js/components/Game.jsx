@@ -62,7 +62,10 @@ export default class Game extends Component {
         let status;
         if (winner) {
             status = "Winner: " + winner;
-        } else {
+        } else if (this.props.gameState.stepNumber == 9) {
+            // we've had 9 choices and no winner, so it's a draw
+            status = 'Draw';
+        }else {
             status = "Next player: " + (this.props.gameState.xIsNext ? "X" : "O");
         }
 
