@@ -1,61 +1,49 @@
-var webpack = require('webpack');
 var path = require('path');
+var webpack = require('webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-//var path = require('path');
-
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 var HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     template: __dirname + "/src/index.html",
-    filename: 'index.html',
+    filename: "index.html",
     inject: 'body'
 });
 
 var copyPatterns = [
-    {from: 'src/index.html'},
-    {from: 'src/favicon.ico'},
-    {from: 'src/css', to: 'css'},
-    {from: 'src/images', to: 'images'},
-    {from: 'data', to: 'data'}
+    { from: 'src/css', to: 'css' } /*,
+    { from: 'src/favico.ico' },
+    { from: 'src/images', to: 'images' },
+    { from: 'data', to: 'data' }*/
 ];
 
 module.exports = {
-
-    entry: ['./src/js/index.js'],
-
+    //context: __dirname + "/src/src/js",
+    entry: [ "./src/js/index.js" ],
     output: {
-
-        path: __dirname + '/dist',
+        path: __dirname + "/dist",
         filename: "bundle.js"
     },
-
-    devServer: {
-        outputPath: __dirname + '/dist'
+    resolve: {
+	extensions: ['.js', '.jsx']
     },
-
     module: {
-
-        loaders: [
+        rules: [
             {
-                test: /\.jsx?$/,
+                test: /.jsx?$/,
                 exclude: /node_modules/,
-                loader: "babel-loader"
+		loader: 'babel-loader'
             },
-            /*{
-                test: /\.scss$/,
-                exclude: /node_modules/,
-                loader: ExtractTextPlugin.extract(['css', 'sass'])
-            }*/
+            {
+                test: /\.css$/,
+                use : ["style-loader", "css-loader" ]
+            }
         ]
     },
 
-    plugins: [new CleanWebpackPlugin(['dist'], {}), new CopyWebpackPlugin(copyPatterns, {}), new ExtractTextPlugin('css/style.css', {
-            allChunks: true
-        }), HtmlWebpackPluginConfig],
-    
-    resolve: {
-        extensions: [ '', '.js', '.jsx' ]
-    }
-
+    plugins: [
+        new CleanWebpackPlugin(),
+        new CopyWebpackPlugin({ patterns: copyPatterns }),
+        HtmlWebpackPluginConfig
+    ]
 };
