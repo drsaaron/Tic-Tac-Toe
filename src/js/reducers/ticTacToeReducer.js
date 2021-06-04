@@ -54,14 +54,14 @@ export default function ticTacToeReducer(state = initialState, action) {
 
         case ActionTypes.JUMP:
             var step = action.step;
-            var squares = state.history[step].squares;
-            var winner = calculateWinner(squares);
+            var historySquares = state.history[step].squares;
+            var winner = calculateWinner(historySquares);
             var status = determineStatus(winner, step);
             return {
                 ...state,
                 stepNumber: step,
                 xIsNext: (step % 2) === 0,
-                currentSquares: squares,
+                currentSquares: historySquares,
                 winner: winner,
                 status: status
             };

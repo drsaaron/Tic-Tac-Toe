@@ -4,7 +4,7 @@
   "description": "This application a simple tic-tac-toe game",
   "main": "index.js",
   "scripts": {
-    "start": "node node_modules/webpack/bin/webpack.js serve --port 3001 --inline --content-base dist --history-api-fallback",
+    "start": "node node_modules/webpack/bin/webpack.js serve --port 3001 --mode=development --inline --content-base dist --history-api-fallback",
     "webpack": "webpack"
   },
   "author": "Scott Aaron",
