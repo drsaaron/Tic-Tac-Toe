@@ -4,11 +4,11 @@
   "description": "This application a simple tic-tac-toe game",
   "main": "index.js",
   "scripts": {
-      "start": "NODE_ENV=development node server/index.js",
-      "build": "react-scripts build",
-      "test": "react-scripts test",
-      "eject": "react-scripts eject",
-      "serve": "NODE_ENV=production node server/index.js"
+    "start": "NODE_ENV=development node server/index.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "serve": "NODE_ENV=production node server/index.js"
   },
   "author": "Scott Aaron",
   "license": "ISC",
@@ -20,13 +20,25 @@
     "jquery": "^3.3.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-      "react-redux": "^8.0.0",
+    "react-redux": "^8.0.0",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.1",
     "redux-promise-middleware": "^6.1.2",
     "redux-thunk": "^2.3.0",
-      "superagent": "^8.0.0",
-      "react-scripts": "^5.0.0"
+    "superagent": "^8.0.0",
+    "react-scripts": "^5.0.0"
   },
-  "repository": "https://github.com/drsaaron/Tic-Tac-Toe"
+  "repository": "https://github.com/drsaaron/Tic-Tac-Toe",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
