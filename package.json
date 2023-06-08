@@ -1,6 +1,6 @@
 {
   "name": "Tic-Tac-Toe",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "This application a simple tic-tac-toe game",
   "main": "index.js",
   "scripts": {
@@ -14,20 +14,14 @@
   "license": "ISC",
   "dependencies": {
     "classnames": "^2.2.6",
-    "compression": "^1.7.2",
     "config": "^3.3.9",
-    "datatables.net": "^1.10.19",
-    "history": "^5.0.0",
-    "jquery": "^3.3.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-redux": "^8.0.0",
     "react-scripts": "^5.0.0",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.1",
-    "redux-promise-middleware": "^6.1.2",
-    "redux-thunk": "^2.3.0",
-    "superagent": "^8.0.0"
+    "redux-thunk": "^2.3.0"
   },
   "repository": "https://github.com/drsaaron/Tic-Tac-Toe",
   "browserslist": {
