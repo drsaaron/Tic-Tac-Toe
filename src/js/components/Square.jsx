@@ -4,18 +4,13 @@
  * and open the template in the editor.
  */
 
-import React, {Component} from 'react';
+const Square = (props) => {
 
-export default class Square extends Component {
-    constructor(props) {
-        super(props);
-    }
+    return (
+        <button className="square" onClick={props.onClick}>
+            {props.value}
+        </button>
+    );
+};
 
-    render() {
-        return (
-                <button className="square" onClick={this.props.onClick}>
-                    {this.props.value}
-                </button>
-                );
-    }
-}
+export default Square;

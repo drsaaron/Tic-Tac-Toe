@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Board from './Board';
 import { squareChosen, jumpTo } from '../actions/TicTacToeActions';
@@ -23,72 +22,63 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-class Game extends Component {
-    constructor(props) {
-        super(props);
-        
-        this.handleClick = this.handleClick.bind(this);
-        this.jumpTo = this.jumpTo.bind(this);
-    }
+const Game = (props) => {
 
-    handleClick(i) {
-        if (this.props.gameState.status == STATUS_STARTING || this.props.gameState.status == STATUS_ACTIVE) {
-            this.props.squareChosen(i);
+    const handleClick = (i) => {
+        if (props.gameState.status == STATUS_STARTING || props.gameState.status == STATUS_ACTIVE) {
+            props.squareChosen(i);
         } else {
             console.log("game is already over");
         }
     }
 
-    jumpTo(step) {
-        this.props.jumpTo(step);
+    const jumpTo = (step) => {
+        props.jumpTo(step);
     }
 
-    render() {
-        const history = this.props.gameState.history;
-        const current = this.props.gameState.currentSquares;
-        const winner = this.props.gameState.winner;
-
-        const moves = history.map((step, move) => {
-            const desc = move ?
-                    'Go to move #' + move :
-                    'Go to game start';
-            return (
-                    <li key={move}>
-                        <button onClick={() => this.jumpTo(move)}>{desc}</button>
-                    </li>
-                    );
-        });
-
-        var gameStatus = this.props.gameState.status;
-        let status;
-        switch (gameStatus) {
-            case STATUS_WINNER:
-                status = "Winner: " + winner;
-                break;
-            case STATUS_DRAW:
-                status = 'Draw';
-                break;
-            default:
-                status = "Next player: " + (this.props.gameState.xIsNext ? "X" : "O");
-                break;
-        }
-
+    const history = props.gameState.history;
+    const current = props.gameState.currentSquares;
+    const winner = props.gameState.winner;
+    
+    const moves = history.map((step, move) => {
+        const desc = move ?
+              'Go to move #' + move :
+              'Go to game start';
         return (
-                <div className="game">
-                    <div className="game-board">
-                        <Board
-                            squares={current}
-                            onClick={i => this.handleClick(i)}
-                            />
-                    </div>
-                    <div className="game-info">
-                        <div>{status}</div>
-                        <ol>{moves}</ol>
-                    </div>
-                </div>
-                );
-    }
+            <li key={move}>
+                <button onClick={() => jumpTo(move)}>{desc}</button>
+            </li>
+        );
+    });
 
-};
+    var gameStatus = props.gameState.status;
+    let status;
+    switch (gameStatus) {
+    case STATUS_WINNER:
+        status = "Winner: " + winner;
+        break;
+    case STATUS_DRAW:
+        status = 'Draw';
+        break;
+    default:
+        status = "Next player: " + (props.gameState.xIsNext ? "X" : "O");
+        break;
+    }
+    
+    return (
+        <div className="game">
+            <div className="game-board">
+                <Board
+                    squares={current}
+                    onClick={i => handleClick(i)}
+                />
+            </div>
+            <div className="game-info">
+                <div>{status}</div>
+                <ol>{moves}</ol>
+            </div>
+        </div>
+    );
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
